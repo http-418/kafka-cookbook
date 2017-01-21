@@ -19,7 +19,6 @@ describe 'service for runit init style' do
 
   def fetch_pid
     run_command('cat /etc/sv/kafka/supervise/pid')
-    # run_command('sv status kafka | sed -n "s/^.*kafka: (pid \([0-9]*\)).*$/\1/p"')
   end
 
   describe 'service kafka start' do
@@ -97,7 +96,7 @@ describe 'service for runit init style' do
       end
 
       it 'prints a message about stopping Kafka' do
-        expect(stop_command.stdout).to match(/ok: down: kafka: \d+s, normally up/)
+        expect(stop_command.stdout).to match(/ok: down: kafka: \d+s/)
         expect(stop_command.stderr).to be_empty
       end
 
@@ -119,7 +118,7 @@ describe 'service for runit init style' do
 
       it 'prints a message about stopping kafka' do
         command = stop_kafka
-        expect(command.stdout).to match(/ok: down: kafka: \d+s, normally up/)
+        expect(command.stdout).to match(/ok: down: kafka: \d+s/)
         expect(command.stderr).to be_empty
       end
 
@@ -159,7 +158,7 @@ describe 'service for runit init style' do
       end
 
       it 'prints a message that Kafka is not running / stopped' do
-        expect(message).to match(/down: kafka: \d+s, normally up/)
+        expect(message).to match(/down: kafka: \d+s/)
         expect(status_command.stderr).to be_empty
       end
     end
